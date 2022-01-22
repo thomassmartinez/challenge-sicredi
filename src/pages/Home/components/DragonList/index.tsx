@@ -1,0 +1,62 @@
+import React from 'react';
+import {Container, Content, Table} from './styles';
+
+export const DragonList: React.FC = () => {
+  return (
+    <Container>
+      <Content>
+        <Table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Nascimento</th>
+              <th>Espécie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nome</td>
+              <td>Nascimento</td>
+              <td>Espécie</td>
+            </tr>
+            <tr>
+              <td>Nome</td>
+              <td>Nascimento</td>
+              <td>Espécie</td>
+            </tr>
+            <tr>
+              <td>Nome</td>
+              <td>Nascimento</td>
+              <td>Espécie</td>
+            </tr>
+            <tr>
+              <td>Nome</td>
+              <td>Nascimento</td>
+              <td>Espécie</td>
+            </tr>
+            <tr>
+              <td>Nome</td>
+              <td>Nascimento</td>
+              <td>Espécie</td>
+            </tr>
+            <tr>
+              <td>Nome</td>
+              <td>Nascimento</td>
+              <td>Espécie</td>
+            </tr>
+            <tr>
+              <td>Nome</td>
+              <td>Nascimento</td>
+              <td>Espécie</td>
+            </tr>
+            <tr>
+              <td>Nome</td>
+              <td>Nascimento</td>
+              <td>Espécie</td>
+            </tr>
+          </tbody>
+        </Table>
+      </Content>
+    </Container>
+  );
+};

@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   :root {
@@ -19,7 +19,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6, span, p, th, td {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Almendra SC', sans-serif;
     font-weight: 400;
   }
 `;

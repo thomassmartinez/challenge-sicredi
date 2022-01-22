@@ -1,11 +1,11 @@
-import React from "react";
-import { GlobalStyles } from "./shared/globalStyles";
-
+import React from 'react';
+import {GlobalStyles} from './shared/globalStyles';
+import {Home} from './pages';
 export const App: React.FC = () => {
   return (
     <div className="App">
       <GlobalStyles />
-      <h1>Hello wooooooorld</h1>
+      <Home />
     </div>
   );
 };
