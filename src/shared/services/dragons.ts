@@ -2,10 +2,10 @@ import {Api} from 'shared/settings-api/api';
 
 export interface IDragon {
   createdAt: Date;
-  name?: string;
-  type?: string;
+  name: string;
+  type: string;
   id: string;
-  histories: any[];
+  // histories: any[];
 }
 
 const getDragonList = async (): Promise<IDragon[]> => {
@@ -18,9 +18,9 @@ const getDragonList = async (): Promise<IDragon[]> => {
   }
 };
 
-const getDragon = async (id: string): Promise<IDragon[]> => {
+const getDragon = async (id: string): Promise<IDragon> => {
   try {
-    const {data} = await Api().get<IDragon[]>(`dragon/${id}`);
+    const {data} = await Api().get<IDragon>(`dragon/${id}`);
 
     return data;
   } catch (error: any) {

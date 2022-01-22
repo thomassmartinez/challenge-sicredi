@@ -10,20 +10,36 @@ export const Container = styled.header`
   border-bottom-right-radius: 5px;
 `;
 
+export const Button = styled.button`
+  width: 20%;
+  height: 40%;
+  font-size: 20px;
+  color: var(--primary);
+  background: var(--background);
+  border: 1px solid var(--background);
+  border-radius: 5px;
+`;
+
 export const Content = styled.div`
   max-width: 1300px;
   height: 100%;
   margin: 0 auto;
   padding: 0 10px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
 
   img {
     background-color: var(--white);
     width: 60px;
     height: 60px;
   }
+
   h1 {
     margin-left: 15px;
     font-size: 35px;

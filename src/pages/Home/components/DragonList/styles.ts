@@ -38,10 +38,24 @@ export const Table = styled.table`
     }
   }
 
+  tr {
+    cursor: pointer;
+  }
+
   td {
     padding: 15px 80px;
     border: 0;
     background: var(--white);
+
+    span {
+      font-size: 20px;
+      text-align: center;
+    }
+
+    span:hover {
+      color: red;
+    }
+
     @media screen and (max-width: 700px) and (min-width: 300px) {
       padding: 15px;
     }

@@ -6,6 +6,7 @@ export const GlobalStyles = createGlobalStyle`
     --white: #ffffff;
     --black: #000000;
     --gray: #A9A9A9;
+    --background: #1D242F;
   }
 
   * {
@@ -15,7 +16,7 @@ export const GlobalStyles = createGlobalStyle`
   };
 
   body {
-    background: #1D242F 
+    background: var(--background); 
   }
 
   h1, h2, h3, h4, h5, h6, span, p, th, td {
