@@ -1,9 +1,11 @@
 import React from "react";
+import { GlobalStyles } from "./shared/globalStyles";
 
 export const App: React.FC = () => {
   return (
     <div className="App">
-      <h1>Hello wooooorld</h1>
+      <GlobalStyles />
+      <h1>Hello wooooooorld</h1>
     </div>
   );
 };
