@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react';
 
 import {DragonServices, IDragon} from 'shared/services/dragons';
-import {Container, Content, Table} from './styles';
+import {Container, Content, Table, Button, Header} from './styles';
 
 import format from 'date-fns/format';
 import {Modal} from 'shared/components/Modal';
@@ -11,11 +11,12 @@ export const DragonList: React.FC = () => {
   const [drake, setDrake] = useState<IDragon>({} as IDragon);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [typeModal, setTypeModal] = useState('criar');
 
   const getListDrakes = useCallback(async () => {
     DragonServices.getDragonList()
       .then((data) => {
-        setDrakes(data.sort());
+        setDrakes(data);
       })
       .catch(() => {
         alert('Erro ao buscar dragões');
@@ -56,8 +57,11 @@ export const DragonList: React.FC = () => {
   }, []);
 
   const handleModalOpenClose = useCallback(
-    (id) => {
-      getSpecificDrake(id);
+    (type: string, id?: string) => {
+      setTypeModal(type);
+      if (id) {
+        getSpecificDrake(id);
+      }
       openCloseModal();
     },
     [getSpecificDrake, openCloseModal],
@@ -72,6 +76,14 @@ export const DragonList: React.FC = () => {
     <>
       <Container>
         <Content>
+          <Header>
+            <Button
+              onClick={() => {
+                handleModalOpenClose('criar');
+              }}>
+              Criar
+            </Button>
+          </Header>
           <Table>
             <thead>
               <tr>
@@ -84,12 +96,18 @@ export const DragonList: React.FC = () => {
             <tbody>
               {!loading &&
                 drakes.map(({id, name, createdAt, type}) => (
-                  <tr key={id} onClick={() => handleModalOpenClose(id)}>
-                    <td>{name}</td>
-                    <td>{format(new Date(createdAt), 'dd/MM/yyyy HH:mm')}</td>
-                    <td>{type}</td>
-                    <td onClick={() => removeDrake(id)}>
-                      <span>X</span>
+                  <tr key={id}>
+                    <td onClick={() => handleModalOpenClose('alterar', id)}>
+                      {name}
+                    </td>
+                    <td onClick={() => handleModalOpenClose('alterar', id)}>
+                      {format(new Date(createdAt), 'dd/MM/yyyy HH:mm')}
+                    </td>
+                    <td onClick={() => handleModalOpenClose('alterar', id)}>
+                      {type}
+                    </td>
+                    <td>
+                      <span onClick={() => removeDrake(id)}>X</span>
                     </td>
                   </tr>
                 ))}
@@ -101,7 +119,8 @@ export const DragonList: React.FC = () => {
         open={open}
         data={drake}
         openCloseModal={openCloseModal}
-        type="alterar"
+        type={typeModal}
+        getListDrakes={getListDrakes}
       />
     </>
   );

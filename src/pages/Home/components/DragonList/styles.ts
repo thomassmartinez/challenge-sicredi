@@ -16,6 +16,22 @@ export const Container = styled.div`
   }
 `;
 
+export const Header = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const Button = styled.button`
+  width: 20%;
+  height: 40px;
+  font-size: 20px;
+  color: var(--background);
+  background: var(--primary);
+  border: 1px solid var(--background);
+  border-radius: 5px;
+`;
+
 export const Content = styled.div`
   width: 100%;
   height: 100%;
@@ -38,8 +54,16 @@ export const Table = styled.table`
     }
   }
 
-  tr {
-    cursor: pointer;
+  thead {
+    tr {
+      text-transform: uppercase;
+    }
+  }
+
+  tbody {
+    tr {
+      cursor: pointer;
+    }
   }
 
   td {

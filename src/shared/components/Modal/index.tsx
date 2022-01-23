@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {IDragon} from 'shared/services/dragons';
+import {DragonServices, IDragon} from 'shared/services/dragons';
 
 import {
   Container,
@@ -19,20 +19,28 @@ import {
 interface IPropsModal {
   open: boolean;
   data?: IDragon;
-  type: 'criar' | 'alterar';
+  type: string;
   openCloseModal(): void;
+  getListDrakes(): void;
 }
 
 export const Modal: React.FC<IPropsModal> = ({
   open,
   data,
-  openCloseModal,
   type,
+  openCloseModal,
+  getListDrakes,
 }) => {
   const [drakeUpdate, setDrakeUpdate] = useState<IDragon>({} as IDragon);
   const [drake, setDrake] = useState<Omit<IDragon, 'id'>>(
     {} as Omit<IDragon, 'id'>,
   );
+
+  useEffect(() => {
+    if (type === 'alterar' && data) {
+      setDrakeUpdate(data);
+    }
+  }, [type, data]);
 
   const changeDrake = useCallback(
     (e: React.FormEvent, value, item) => {
@@ -50,16 +58,45 @@ export const Modal: React.FC<IPropsModal> = ({
     [drake],
   );
 
-  useEffect(() => {
-    if (type === 'alterar' && data) {
-      setDrakeUpdate(data);
-    }
-  }, [type, data]);
+  const submitNewDrake = useCallback(
+    async (e, newDrake) => {
+      e.preventDefault();
+      try {
+        await DragonServices.postDragon(newDrake);
+      } catch (error) {
+        alert('Error ao cadastrar dragão');
+      } finally {
+        getListDrakes();
+        openCloseModal();
+      }
+    },
+    [getListDrakes, openCloseModal],
+  );
+
+  const submitUpdateDrake = useCallback(
+    async (e, newDrake) => {
+      e.preventDefault();
+      try {
+        await DragonServices.putDragon(newDrake.id, newDrake);
+      } catch (error) {
+        alert('Error ao alterar dragão');
+      } finally {
+        getListDrakes();
+        openCloseModal();
+      }
+    },
+    [getListDrakes, openCloseModal],
+  );
 
   const handleFormModal = useCallback(
     (type: string) => {
       return (
-        <Form onSubmit={() => {}}>
+        <Form
+          onSubmit={
+            type === 'criar'
+              ? (e: React.FormEvent) => submitNewDrake(e, drake)
+              : (e: React.FormEvent) => submitUpdateDrake(e, drakeUpdate)
+          }>
           <ContainerInput>
             <Input
               type="text"

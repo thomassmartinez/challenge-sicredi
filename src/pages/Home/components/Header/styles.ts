@@ -10,16 +10,6 @@ export const Container = styled.header`
   border-bottom-right-radius: 5px;
 `;
 
-export const Button = styled.button`
-  width: 20%;
-  height: 40%;
-  font-size: 20px;
-  color: var(--primary);
-  background: var(--background);
-  border: 1px solid var(--background);
-  border-radius: 5px;
-`;
-
 export const Content = styled.div`
   max-width: 1300px;
   height: 100%;
@@ -27,12 +17,7 @@ export const Content = styled.div`
   padding: 0 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
-  div {
-    display: flex;
-    align-items: center;
-  }
+  justify-content: flex-start;
 
   img {
     background-color: var(--white);
