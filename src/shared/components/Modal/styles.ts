@@ -24,6 +24,10 @@ export const Content = styled.div`
   border-radius: 10px;
   background: #fff;
   overflow: hidden;
+  @media screen and (max-width: 600px) {
+    width: 80%;
+    margin: 50% auto;
+  }
 `;
 export const Section = styled.div`
   width: 100%;
@@ -98,4 +102,13 @@ export const Button = styled.button`
   font-size: 15px;
   border-radius: 5px;
   margin-left: 5px;
+  @media screen and (max-width: 600px) and (min-width: 450px) {
+    font-size: 12px;
+    width: 30%;
+  }
+  @media screen and (max-width: 449px) {
+    font-size: 12px;
+    padding: 10px 5px;
+    width: 30%;
+  }
 `;
