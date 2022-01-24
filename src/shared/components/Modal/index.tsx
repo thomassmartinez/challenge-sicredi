@@ -37,10 +37,12 @@ export const Modal: React.FC<IPropsModal> = ({
   );
 
   useEffect(() => {
+    setDrake({name: '', type: ''} as IDragon);
+    setDrakeUpdate({} as IDragon);
     if (type === 'alterar' && data) {
       setDrakeUpdate(data);
     }
-  }, [type, data]);
+  }, [type, data, setDrake, setDrakeUpdate]);
 
   const changeDrake = useCallback(
     (e: React.FormEvent, value, item) => {
@@ -49,7 +51,6 @@ export const Modal: React.FC<IPropsModal> = ({
 
     [drakeUpdate],
   );
-  console.log(drakeUpdate, drake);
 
   const createDrake = useCallback(
     (e: React.FormEvent, value, item) => {
