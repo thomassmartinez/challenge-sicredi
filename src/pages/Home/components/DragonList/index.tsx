@@ -5,6 +5,7 @@ import {Container, Content, Table, Button, Header} from './styles';
 
 import format from 'date-fns/format';
 import {Modal} from 'shared/components/Modal';
+import {orderByName} from 'shared/utils/formatOrderBy';
 
 export const DragonList: React.FC = () => {
   const [drakes, setDrakes] = useState<IDragon[]>([]);
@@ -16,7 +17,7 @@ export const DragonList: React.FC = () => {
   const getListDrakes = useCallback(async () => {
     DragonServices.getDragonList()
       .then((data) => {
-        setDrakes(data);
+        setDrakes(orderByName(data));
       })
       .catch(() => {
         alert('Erro ao buscar dragões');
@@ -90,24 +91,28 @@ export const DragonList: React.FC = () => {
                 <th>Nome</th>
                 <th>Nascimento</th>
                 <th>Espécie</th>
-                <th>Remover</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {!loading &&
                 drakes.map(({id, name, createdAt, type}) => (
                   <tr key={id}>
-                    <td onClick={() => handleModalOpenClose('alterar', id)}>
-                      {name}
-                    </td>
-                    <td onClick={() => handleModalOpenClose('alterar', id)}>
-                      {format(new Date(createdAt), 'dd/MM/yyyy HH:mm')}
-                    </td>
-                    <td onClick={() => handleModalOpenClose('alterar', id)}>
-                      {type}
-                    </td>
+                    <td>{name}</td>
+                    <td>{format(new Date(createdAt), 'dd/MM/yyyy HH:mm')}</td>
+                    <td>{type}</td>
                     <td>
-                      <span onClick={() => removeDrake(id)}>X</span>
+                      <span
+                        className="td-clicable"
+                        onClick={() => removeDrake(id)}>
+                        X
+                      </span>
+                    </td>
+                    <td
+                      className="td-clicable"
+                      onClick={() => handleModalOpenClose('alterar', id)}>
+                      Alt
                     </td>
                   </tr>
                 ))}

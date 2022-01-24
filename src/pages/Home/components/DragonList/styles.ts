@@ -49,8 +49,14 @@ export const Table = styled.table`
     padding: 15px 80px;
     text-align: left;
     line-height: 15px;
+    @media screen and (max-width: 1100px) and (min-width: 700px) {
+      padding: 15px;
+    }
     @media screen and (max-width: 700px) and (min-width: 300px) {
       padding: 15px;
+    }
+    @media screen and (max-width: 410px) {
+      padding: 5px;
     }
   }
 
@@ -61,31 +67,37 @@ export const Table = styled.table`
   }
 
   tbody {
-    tr {
+    .td-clicable:hover {
       cursor: pointer;
+      color: red;
     }
   }
 
   td {
-    padding: 15px 80px;
+    padding: 15px 50px;
     border: 0;
     background: var(--white);
-
+    width: 30%;
     span {
-      font-size: 20px;
+      font-size: 15px;
       text-align: center;
     }
-
-    span:hover {
-      color: red;
+    td:last-child,
+    td:nth-last-child(2) {
+      width: 10%;
     }
 
-    @media screen and (max-width: 700px) and (min-width: 300px) {
+    @media screen and (max-width: 1100px) and (min-width: 300px) {
       padding: 15px;
+      text-align: center;
+    }
+    @media screen and (max-width: 410px) {
+      padding: 8px;
+      font-size: 11px;
     }
   }
 
-  @media screen and (max-width: 700px) and (min-width: 300px) {
+  @media screen and (max-width: 1100px) and (min-width: 300px) {
     font-size: 15px;
   }
 `;
