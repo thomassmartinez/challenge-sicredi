@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {DragonServices, IDragon} from 'shared/services/dragons';
 
 import {
@@ -31,10 +31,14 @@ export const Modal: React.FC<IPropsModal> = ({
   openCloseModal,
   getListDrakes,
 }) => {
-  const [drakeUpdate, setDrakeUpdate] = useState<IDragon>({} as IDragon);
-  const [drake, setDrake] = useState<Omit<IDragon, 'id'>>(
-    {} as Omit<IDragon, 'id'>,
-  );
+  const [drakeUpdate, setDrakeUpdate] = useState<IDragon>({
+    name: '',
+    type: '',
+  } as IDragon);
+  const [drake, setDrake] = useState<Omit<IDragon, 'id'>>({
+    name: '',
+    type: '',
+  } as Omit<IDragon, 'id'>);
 
   useEffect(() => {
     setDrake({name: '', type: ''} as IDragon);
@@ -89,59 +93,90 @@ export const Modal: React.FC<IPropsModal> = ({
     [getListDrakes, openCloseModal],
   );
 
-  const handleFormModal = useCallback(
-    (type: string) => {
-      return (
-        <Form
-          onSubmit={
-            type === 'criar'
-              ? (e: React.FormEvent) => submitNewDrake(e, drake)
-              : (e: React.FormEvent) => submitUpdateDrake(e, drakeUpdate)
-          }>
-          <ContainerInput>
-            <Input
-              type="text"
-              required
-              placeholder="Digite o nome do dragão:"
-              value={type === 'criar' ? drake.name : drakeUpdate?.name}
-              onChange={
-                type === 'criar'
-                  ? (e) => createDrake(e, 'name', e.target.value)
-                  : (e) => changeDrake(e, 'name', e.target.value)
-              }></Input>
-            <Input
-              type="text"
-              required
-              placeholder="Digite o tipo do dragão:"
-              value={type === 'criar' ? drake.type : drakeUpdate?.type}
-              onChange={
-                type === 'criar'
-                  ? (e) => createDrake(e, 'type', e.target.value)
-                  : (e) => changeDrake(e, 'type', e.target.value)
-              }></Input>
-          </ContainerInput>
-          <ContainerButton>
-            <Button type="reset" onClick={() => openCloseModal()}>
-              Cancelar
-            </Button>
-            <Button type="submit">Salvar</Button>
-          </ContainerButton>
-        </Form>
-      );
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [openCloseModal, createDrake, changeDrake],
-  );
+  const handleCreateForm = useMemo(() => {
+    return (
+      <Form onSubmit={(e: React.FormEvent) => submitNewDrake(e, drake)}>
+        <ContainerInput>
+          <Input
+            type="text"
+            data-testid="inputName"
+            required
+            placeholder="Digite o nome do dragão:"
+            value={drake.name}
+            onChange={(e) => createDrake(e, 'name', e.target.value)}></Input>
+          <Input
+            type="text"
+            data-testid="inputType"
+            required
+            placeholder="Digite o tipo do dragão:"
+            value={drake.type}
+            onChange={(e) => createDrake(e, 'type', e.target.value)}></Input>
+        </ContainerInput>
+        <ContainerButton>
+          <Button
+            data-testid="btnCloseModal"
+            type="reset"
+            onClick={() => openCloseModal()}>
+            Cancelar
+          </Button>
+          <Button data-testid="btnConfirmModal" type="submit">
+            Salvar
+          </Button>
+        </ContainerButton>
+      </Form>
+    );
+  }, [openCloseModal, createDrake, submitNewDrake, drake]);
+
+  const handleUpdateForm = useMemo(() => {
+    return (
+      <Form
+        onSubmit={(e: React.FormEvent) => submitUpdateDrake(e, drakeUpdate)}>
+        <ContainerInput>
+          <Input
+            type="text"
+            data-testid="inputName"
+            required
+            placeholder="Digite o nome do dragão:"
+            value={drakeUpdate.name}
+            onChange={(e) => changeDrake(e, 'name', e.target.value)}></Input>
+          <Input
+            type="text"
+            data-testid="inputType"
+            required
+            placeholder="Digite o tipo do dragão:"
+            value={drakeUpdate.type}
+            onChange={(e) => changeDrake(e, 'type', e.target.value)}></Input>
+        </ContainerInput>
+        <ContainerButton>
+          <Button
+            data-testid="btnCloseModal"
+            type="reset"
+            onClick={() => openCloseModal()}>
+            Cancelar
+          </Button>
+          <Button data-testid="btnConfirmModal" type="submit">
+            Salvar
+          </Button>
+        </ContainerButton>
+      </Form>
+    );
+  }, [openCloseModal, changeDrake, submitUpdateDrake, drakeUpdate]);
 
   return (
     <Container open={open}>
       <Content>
         <Header>
           <H1>{type}</H1>
-          <IconClose onClick={() => openCloseModal()}>x</IconClose>
+          <IconClose
+            data-testid="iconCloseModal"
+            onClick={() => openCloseModal()}>
+            x
+          </IconClose>
         </Header>
         <Divider />
-        <Section>{handleFormModal(type)}</Section>
+        <Section>
+          {type === 'criar' ? handleCreateForm : handleUpdateForm}
+        </Section>
       </Content>
     </Container>
   );
