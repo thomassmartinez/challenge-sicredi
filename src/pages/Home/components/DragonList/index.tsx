@@ -96,15 +96,18 @@ export const DragonList: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {!loading &&
+              {!loading ? (
                 drakes.map(({id, name, createdAt, type}) => (
                   <tr key={id}>
-                    <td>{name}</td>
-                    <td>{format(new Date(createdAt), 'dd/MM/yyyy HH:mm')}</td>
-                    <td>{type}</td>
+                    <td data-testid="nameDrake">{name}</td>
+                    <td data-testid="dtDrake">
+                      {format(new Date(createdAt), 'dd/MM/yyyy HH:mm')}
+                    </td>
+                    <td data-testid="typeDrake">{type}</td>
                     <td>
                       <span
                         className="td-clicable"
+                        data-testid="btnDelete"
                         onClick={() => removeDrake(id)}>
                         X
                       </span>
@@ -115,7 +118,12 @@ export const DragonList: React.FC = () => {
                       Alt
                     </td>
                   </tr>
-                ))}
+                ))
+              ) : (
+                <tr>
+                  <td>... loading</td>
+                </tr>
+              )}
             </tbody>
           </Table>
         </Content>

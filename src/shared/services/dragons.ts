@@ -45,6 +45,7 @@ const putDragon = async (id: string, body: IDragon): Promise<void> => {
 };
 
 const deleteDragon = async (id: string): Promise<void> => {
+  console.log('id', id);
   try {
     await Api().delete<IDragon[]>(`dragon/${id}`);
   } catch (error: any) {
