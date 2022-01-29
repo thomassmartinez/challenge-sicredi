@@ -9,7 +9,12 @@ import {orderByName} from 'shared/utils/formatOrderBy';
 
 export const DragonList: React.FC = () => {
   const [drakes, setDrakes] = useState<IDragon[]>([]);
-  const [drake, setDrake] = useState<IDragon>({} as IDragon);
+  const [drakeToUpdate, setDrakeToUpdate] = useState<IDragon>({
+    name: '',
+    type: '',
+    createdAt: new Date(),
+    id: '',
+  } as IDragon);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [typeModal, setTypeModal] = useState('criar');
@@ -30,7 +35,7 @@ export const DragonList: React.FC = () => {
   const getSpecificDrake = useCallback(async (id: string) => {
     DragonServices.getDragon(id)
       .then((data) => {
-        setDrake(data);
+        setDrakeToUpdate(data);
       })
       .catch(() => {
         alert('Erro ao buscar dragões');
@@ -70,8 +75,7 @@ export const DragonList: React.FC = () => {
 
   useEffect(() => {
     getListDrakes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getListDrakes]);
 
   return (
     <>
@@ -134,7 +138,7 @@ export const DragonList: React.FC = () => {
       </Container>
       <Modal
         open={open}
-        data={drake}
+        data={drakeToUpdate}
         openCloseModal={openCloseModal}
         type={typeModal}
         getListDrakes={getListDrakes}
