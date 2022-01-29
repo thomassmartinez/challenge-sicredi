@@ -1,11 +1,16 @@
 import React from 'react';
 import {GlobalStyles} from './shared/globalStyles';
-import {Home} from './pages';
+import {LoginProvider} from 'shared/context';
+import {Routes} from 'routes';
+import {BrowserRouter} from 'react-router-dom';
+
 export const App: React.FC = () => {
   return (
-    <div className="App">
+    <LoginProvider>
       <GlobalStyles />
-      <Home />
-    </div>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </LoginProvider>
   );
 };

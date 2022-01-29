@@ -122,6 +122,10 @@ export const DragonList: React.FC = () => {
               ) : (
                 <tr>
                   <td>... loading</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               )}
             </tbody>

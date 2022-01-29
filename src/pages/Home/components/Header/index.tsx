@@ -7,7 +7,7 @@ export const Header: React.FC = () => {
       <Container>
         <Content>
           <img alt="" />
-          <h1>Dragon</h1>
+          <h1>Dragão</h1>
         </Content>
       </Container>
     </>

@@ -49,16 +49,16 @@ export const Modal: React.FC<IPropsModal> = ({
   }, [type, data, setDrake, setDrakeUpdate]);
 
   const changeDrake = useCallback(
-    (e: React.FormEvent, value, item) => {
-      drakeUpdate && setDrakeUpdate({...drakeUpdate, [value]: item});
+    (e: React.FormEvent, item, value) => {
+      drakeUpdate && setDrakeUpdate({...drakeUpdate, [item]: value});
     },
 
     [drakeUpdate],
   );
 
   const createDrake = useCallback(
-    (e: React.FormEvent, value, item) => {
-      setDrake({...drake, [value]: item});
+    (e: React.FormEvent, item, value) => {
+      setDrake({...drake, [item]: value});
     },
     [drake],
   );
