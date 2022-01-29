@@ -18,8 +18,6 @@ export const LoginProvider: React.FC = ({children}) => {
   const [user, setUser] = useState<IUser>({login: '', password: ''});
   const [isLogged, setIsLogged] = useState(false);
 
-  console.log(user, isLogged, 'hook');
-
   return (
     <LoginContext.Provider value={{user, setUser, setIsLogged, isLogged}}>
       {children}
