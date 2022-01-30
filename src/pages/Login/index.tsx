@@ -23,14 +23,12 @@ export const LoginPage: React.FC = () => {
     [identify],
   );
 
-  console.log(disabled);
   const handleConfirmCredential = useCallback(() => {
     identify && setUser(identify);
 
     setTimeout(() => {
       setDisabled(true);
       setIsLogged(true);
-      console.log('entrei');
     }, 1000);
     setDisabled(false);
   }, [identify, setDisabled, setUser, setIsLogged]);

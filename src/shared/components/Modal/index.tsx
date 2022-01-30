@@ -42,7 +42,7 @@ export const Modal: React.FC<IPropsModal> = ({
 
   useEffect(() => {
     setDrake({name: '', type: ''} as IDragon);
-    setDrakeUpdate({} as IDragon);
+    setDrakeUpdate({name: '', type: ''} as IDragon);
     if (type === 'alterar' && data) {
       setDrakeUpdate(data);
     }

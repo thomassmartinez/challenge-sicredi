@@ -14,7 +14,7 @@ export const DragonList: React.FC = () => {
     type: '',
     createdAt: new Date(),
     id: '',
-  } as IDragon);
+  });
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [typeModal, setTypeModal] = useState('criar');

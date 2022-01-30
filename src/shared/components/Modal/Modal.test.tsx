@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen, fireEvent} from '@testing-library/react';
+import {render, screen, fireEvent, waitFor} from '@testing-library/react';
 import {Modal} from '.';
 import {DragonServices} from 'shared/services/dragons';
 
@@ -21,7 +21,7 @@ describe('render Modal', () => {
       />,
     );
     expect(screen.getByText('criar')).toBeTruthy();
-    expect(screen.queryByText('alterar')).not.toBeInTheDocument();
+    expect(screen.queryByText('alterar')).toBeFalsy();
   });
 
   it('ao clicar no icone de fechar, deve fechar a modal', () => {
@@ -63,10 +63,9 @@ describe('render Modal', () => {
     expect(getListDrakesModal).not.toBeCalled();
   });
 
-  it('ao preencher os inputs deve enviar para o backend', () => {
+  it('ao preencher os inputs e clicar no submit deve fechar a modal', async () => {
     const closeModal = jest.fn();
     const getListDrakes = jest.fn();
-    const spy = jest.spyOn(DragonServices, 'postDragon');
 
     render(
       <Modal
@@ -84,50 +83,19 @@ describe('render Modal', () => {
     const btnConfirm = screen.getByTestId('btnConfirmModal');
 
     fireEvent.submit(btnConfirm);
-
-    expect(spy).toHaveBeenCalledWith({
-      name: 'Dremon',
-      type: 'fire',
+    await waitFor(() => {
+      expect(closeModal).toHaveBeenCalled();
     });
   });
 
-  it('ao clicar para alterar o dragao, deve apresentar as inputs preenchidos para alteração', () => {
+  it('ao abri a modal na versão alterar, aos alterar os inputs e clicar no submit deve fechar a modal', async () => {
     const closeModal = jest.fn();
     const getListDrakes = jest.fn();
-
-    const data = {
-      createdAt: new Date('2022-01-25T00:33:56.062Z'),
-      name: 'Drumomon',
-      type: 'water',
-      id: '33',
-    };
-
-    render(
-      <Modal
-        open={mockModal.open}
-        type={'alterar'}
-        data={data}
-        getListDrakes={getListDrakes}
-        openCloseModal={closeModal}
-      />,
-    );
-
-    const inputName = screen.getByTestId('inputName');
-    const inputType = screen.getByTestId('inputType');
-
-    expect(inputName).toHaveValue('Drumomon');
-    expect(inputType).toHaveValue('water');
-  });
-
-  it('ao abri a modal na versão alterar, deve poder alterar os inputs e enviar ao backend', () => {
-    const closeModal = jest.fn();
-    const getListDrakes = jest.fn();
-    const spy = jest.spyOn(DragonServices, 'putDragon');
     const data = {
       createdAt: new Date('2022-01-25T00:32:56.062Z'),
       name: 'Dremon',
       type: 'fire',
-      id: '31',
+      id: '12',
     };
     render(
       <Modal
@@ -146,11 +114,8 @@ describe('render Modal', () => {
     const btnConfirm = screen.getByTestId('btnConfirmModal');
 
     fireEvent.submit(btnConfirm);
-    expect(spy).toHaveBeenCalledWith('31', {
-      name: 'Dremonsss',
-      type: 'fireaaa',
-      createdAt: new Date('2022-01-25T00:32:56.062Z'),
-      id: '31',
+    await waitFor(() => {
+      expect(closeModal).toHaveBeenCalled();
     });
   });
 });
