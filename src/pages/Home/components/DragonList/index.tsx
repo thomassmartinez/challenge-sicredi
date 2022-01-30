@@ -4,7 +4,7 @@ import {DragonServices, IDragon} from 'shared/services/dragons';
 import {Container, Content, Table, Button, Header} from './styles';
 
 import format from 'date-fns/format';
-import {Modal} from 'shared/components/Modal';
+import {Modal} from './components/Modal';
 import {orderByName} from 'shared/utils/formatOrderBy';
 
 export const DragonList: React.FC = () => {

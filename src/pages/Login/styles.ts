@@ -63,7 +63,7 @@ export const Button = styled.button`
   border: 1px solid var(--primary);
   width: 35%;
   padding: 10px 15px;
-  font-size: 15px;
+  font-size: 18px;
   border-radius: 5px;
   cursor: pointer;
   @media screen and (max-width: 600px) and (min-width: 450px) {
