@@ -17,12 +17,15 @@ export const Content = styled.div`
   padding: 0 10px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
 
-  img {
-    background-color: var(--white);
-    width: 60px;
-    height: 60px;
+  button {
+    width: 10%;
+    height: 40px;
+    background: var(--white);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
   }
 
   h1 {

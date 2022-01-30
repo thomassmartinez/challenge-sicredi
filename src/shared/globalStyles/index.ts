@@ -19,7 +19,7 @@ export const GlobalStyles = createGlobalStyle`
     background: var(--background); 
   }
 
-  h1, h2, h3, h4, h5, h6, span, p, th, td {
+  h1, h2, h3, h4, h5, h6, span, p, th, td, button {
     font-family: 'Almendra SC', sans-serif;
     font-weight: 400;
   }

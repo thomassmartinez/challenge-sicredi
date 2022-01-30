@@ -23,23 +23,27 @@ export const LoginPage: React.FC = () => {
     [identify],
   );
 
-  const handleConfirmCredential = useCallback(() => {
-    identify && setUser(identify);
+  const handleConfirmCredential = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    setTimeout(() => {
-      setDisabled(true);
-      setIsLogged(true);
-    }, 1000);
-    setDisabled(false);
-  }, [identify, setDisabled, setUser, setIsLogged]);
+      identify && setUser(identify);
+
+      setTimeout(() => {
+        setDisabled(true);
+        setIsLogged(true);
+      }, 1000);
+      setDisabled(false);
+    },
+    [identify, setDisabled, setUser, setIsLogged],
+  );
 
   return (
     <Container>
       <Content>
-        <Box>
+        <Box onSubmit={(e: React.FormEvent) => handleConfirmCredential(e)}>
           <h1>Login</h1>
           <span>Digite qualquer user e password para logar</span>
-
           <ContainerInput>
             <Input
               placeholder="Digite seu login:"
@@ -53,9 +57,7 @@ export const LoginPage: React.FC = () => {
               type="password"></Input>
           </ContainerInput>
           <ContainerButton>
-            <Button
-              disabled={disabled}
-              onClick={() => handleConfirmCredential()}>
+            <Button disabled={disabled} type="submit">
               Entrar
             </Button>
           </ContainerButton>

@@ -15,7 +15,7 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export const Box = styled.div`
+export const Box = styled.form`
   background: white;
   width: 400px;
   height: 400px;
