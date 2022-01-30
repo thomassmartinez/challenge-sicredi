@@ -26,14 +26,13 @@ export const LoginPage: React.FC = () => {
   const handleConfirmCredential = useCallback(
     (e) => {
       e.preventDefault();
-
+      setDisabled(true);
       identify && setUser(identify);
 
       setTimeout(() => {
-        setDisabled(true);
         setIsLogged(true);
+        setDisabled(false);
       }, 1000);
-      setDisabled(false);
     },
     [identify, setDisabled, setUser, setIsLogged],
   );
@@ -49,12 +48,14 @@ export const LoginPage: React.FC = () => {
               placeholder="Digite seu login:"
               required
               onChange={(e) => handleSetIdentify(e, 'login', e.target.value)}
-              type="text"></Input>
+              type="text"
+            />
             <Input
               placeholder="Digite sua senha"
               required
               onChange={(e) => handleSetIdentify(e, 'password', e.target.value)}
-              type="password"></Input>
+              type="password"
+            />
           </ContainerInput>
           <ContainerButton>
             <Button disabled={disabled} type="submit">

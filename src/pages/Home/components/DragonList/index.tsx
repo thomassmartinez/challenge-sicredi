@@ -100,7 +100,7 @@ export const DragonList: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {!loading ? (
+              {!loading && drakes.length >= 1 ? (
                 drakes.map(({id, name, createdAt, type}) => (
                   <tr key={id}>
                     <td data-testid="nameDrake">{name}</td>
@@ -125,7 +125,7 @@ export const DragonList: React.FC = () => {
                 ))
               ) : (
                 <tr>
-                  <td>... loading</td>
+                  <td>Nenhum drake, cadestre um</td>
                   <td></td>
                   <td></td>
                   <td></td>
